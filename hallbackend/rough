@@ -1,0 +1,32 @@
+
+
+const MONGO_URI = "mongodb://localhost:27017/hall_booking"; // Change if needed
+
+async function seedData() {
+  await mongoose.connect(MONGO_URI);
+
+  await Department.deleteMany({});
+  await Hall.deleteMany({});
+
+  const departments = [
+    { name: "Computer Science" },
+    { name: "Electronics" }
+  ];
+
+  const createdDepartments = await Department.insertMany(departments);
+
+  const halls = [
+    { name: "panini", department: createdDepartments[0]._id, capacity: 100 },
+    { name: "lee", department: createdDepartments[0]._id, capacity: 80 },
+    { name: "balu", department: createdDepartments[1]._id, capacity: 120 },
+    { name: "balaji", department: createdDepartments[1]._id, capacity: 90 },
+    { name: "turing", department: createdDepartments[0]._id, capacity: 60 }
+  ];
+
+  await Hall.insertMany(halls);
+
+  console.log("✅ Departments and halls seeded");
+  mongoose.disconnect();
+}
+
+seedData();
