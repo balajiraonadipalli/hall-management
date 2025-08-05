@@ -15,6 +15,9 @@ const BookingSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"HallModel"
     },
+    MeetingDescription:{
+        type:String,
+    },
     bookingDate:{
         type:Date
     },
